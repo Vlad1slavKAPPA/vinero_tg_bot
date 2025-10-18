@@ -15,7 +15,7 @@ def contacs_link():
 
 def geo_link():
     inline_kb_list = [
-        [InlineKeyboardButton(text='Мы на карте 📍', web_app=WebAppInfo(url="https://yandex.ru/maps/-/CHF3QR8s"))]
+        [InlineKeyboardButton(text='Мы на карте 📍', web_app=WebAppInfo(url="https://yandex.ru/maps/-/CLVORQzU"))]
     ]
     return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)
 

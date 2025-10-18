@@ -11,8 +11,8 @@ async def contacts_cmd(call: CallbackQuery):
     await call.answer()
     text = """
 Контакты нашей студии:\n
-✂️ Администратор Марьяна\n
-📞 +79536443044                 
+✂️ Администратор Алина\n
+📞 +7(999)-999-99-99                 
     """
     msg =  await call.message.answer(text, reply_markup=geo_link())
 
@@ -36,7 +36,7 @@ async def about_cmd(message: Message):
 @info_router.message(F.text == '💸 Прайс-лист')
 async def price_list_cmd(message: Message):
     price_list = (
-    "🌟 Прайс-лист студии красоты Barbero 🌟\n\n"
+    "🌟 Прайс-лист студии красоты Vinero 🌟\n\n"
 
     "✂️ Парикмахерские услуги\n\n"
 
