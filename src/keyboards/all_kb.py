@@ -8,14 +8,12 @@ def main_kb(user_telegram_id: int):
         [KeyboardButton(text="📝 Отзывы клиентов")],
         [KeyboardButton(text="💇‍♀️ Записаться к мастеру")],
         [KeyboardButton(text='📋 Мои записи')],
-        [KeyboardButton(text='🛠 Выдать права администратора')],
+        [KeyboardButton(text='🛠 Выдать права администратора')]
     ]
     if user_telegram_id in db_connector.admins_cache:
         kb_list.append([KeyboardButton(text="⚙️ Админ-панель")])
     if user_telegram_id in db_connector.employee_cache:
         kb_list.append([KeyboardButton(text="⚙️ Кабинет-сотрудника")])
-    else:
-        kb_list.append([KeyboardButton(text='👨‍🔧 Выдать права сотрудника')])
     keyboard = ReplyKeyboardMarkup(
         keyboard=kb_list,
         resize_keyboard=True,

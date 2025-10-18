@@ -115,12 +115,12 @@ async def list_emp(message: Message | CallbackQuery, page: int, state: FSMContex
     await state.update_data(full_data_emp = employees)
     has_next_page = len(rows) > 5
     
+    builder = InlineKeyboardBuilder()
     if not employees:
         builder.button(text="➕ Добавить сотрудника", callback_data=f"employee_add")
         await message.answer("Сотрудники не найдены.", reply_markup=builder.as_markup())
         return
     
-    builder = InlineKeyboardBuilder()
     for employee in employees:
         label = f"{employee['name']} - {employee['phone']} - {employee['role_name']}"
         builder.button(text=label, callback_data=f"employee_detail_{employee['id']}_{page}")
@@ -142,12 +142,6 @@ async def paginate_emp(callback: CallbackQuery, state: FSMContext):
     parts = callback.data.split("_")
     page = int(parts[2])
     await list_emp(callback, page, state)
-
-@apanel_router.callback_query(F.text == "👨‍🔧 Выдать права сотрудника")
-async def start_add_employee_text(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
-    await callback.message.answer(text="Отправьте номер телефона от аккаунта будущего сотрудника.\n\nЭтот аккаунт сотрудника должен быть зарегистрирован в боте!\n\nПример: +79528129191")
-    await state.set_state(Admin_Panel.phone_new_emp)
 
 @apanel_router.callback_query(F.data.startswith("employee_add"))
 async def start_add_employee(callback: CallbackQuery, state: FSMContext):
@@ -433,7 +427,7 @@ async def show_employee_edit(callback: CallbackQuery, state: FSMContext):
         f"🕒 Начало рабочего дня: {employees['start_time'].strftime('%H:%M')}\n"
         f"🕒 Конец рабочего дня: {employees['end_time'].strftime('%H:%M')}\n\n"
         f"📋 Номер телефона:\n+{employees['phone']}\n\n"
-        f"<a href='tg://user?id={data['user_id']}'>Перейти к пользователю</a>\n\n"
+        f"<a href='tg://user?id={employees['user_id']}'>Перейти к пользователю</a>\n\n"
     )
 
     # Клавиатура
