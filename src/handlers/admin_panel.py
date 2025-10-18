@@ -56,7 +56,7 @@ async def show_user_kb(message: Message):
                 reply_markup=main_kb(message.from_user.id)
             )
     
-@apanel_router.message(F.text == "Выдать права администратора")
+@apanel_router.message(F.text == "🛠 Выдать права администратора")
 async def add_status_admin(message: Message):
     user_id = message.from_user.id
     #check_status = await db_connector.execute_query("SELECT admin_status FROM users WHERE id = :id", {"id": int(user_id)})
@@ -80,6 +80,7 @@ async def add_status_admin(message: Message):
             await message.answer("❌ При выдаче прав администратора произошла ошибка!")
             return
         await message.answer(f"✅ Вы теперь администратор!", reply_markup=main_kb(message.from_user.id))
+
     
 @apanel_router.message(F.text == "⚙️ Админ-панель")
 async def show_user_kb(message: Message):
@@ -113,9 +114,10 @@ async def list_emp(message: Message | CallbackQuery, page: int, state: FSMContex
     employees = rows[:5]
     await state.update_data(full_data_emp = employees)
     has_next_page = len(rows) > 5
-
+    
     if not employees:
-        await send_fn("Сотрудники не найдены.")
+        builder.button(text="➕ Добавить сотрудника", callback_data=f"employee_add")
+        await message.answer("Сотрудники не найдены.", reply_markup=builder.as_markup())
         return
     
     builder = InlineKeyboardBuilder()
@@ -140,6 +142,12 @@ async def paginate_emp(callback: CallbackQuery, state: FSMContext):
     parts = callback.data.split("_")
     page = int(parts[2])
     await list_emp(callback, page, state)
+
+@apanel_router.callback_query(F.text == "👨‍🔧 Стать сотрудником")
+async def start_add_employee_text(callback: CallbackQuery, state: FSMContext):
+    await callback.answer()
+    await callback.message.answer(text="Отправьте номер телефона от аккаунта будущего сотрудника.\n\nЭтот аккаунт сотрудника должен быть зарегистрирован в боте!\n\nПример: +79528129191")
+    await state.set_state(Admin_Panel.phone_new_emp)
 
 @apanel_router.callback_query(F.data.startswith("employee_add"))
 async def start_add_employee(callback: CallbackQuery, state: FSMContext):
