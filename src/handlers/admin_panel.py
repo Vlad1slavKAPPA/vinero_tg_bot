@@ -143,7 +143,7 @@ async def paginate_emp(callback: CallbackQuery, state: FSMContext):
     page = int(parts[2])
     await list_emp(callback, page, state)
 
-@apanel_router.callback_query(F.text == "👨‍🔧 Стать сотрудником")
+@apanel_router.callback_query(F.text == "👨‍🔧 Выдать права сотрудника")
 async def start_add_employee_text(callback: CallbackQuery, state: FSMContext):
     await callback.answer()
     await callback.message.answer(text="Отправьте номер телефона от аккаунта будущего сотрудника.\n\nЭтот аккаунт сотрудника должен быть зарегистрирован в боте!\n\nПример: +79528129191")
