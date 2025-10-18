@@ -1105,8 +1105,8 @@ async def publish_review(callback: CallbackQuery, state: FSMContext):
         query = "UPDATE reviews SET check_in = \'true\' WHERE id = :id"
         if await db_connector.execute_query(query, {"id": int(review_id)}):
             await callback.message.edit_text(text="✅ Отзыв опубликован.")
-            await bot.send_message(chat_id=-1002714644138, text=f"📋 Отзыв от нашего клиента {name.capitalize()}.\n\n📅 Дата: {date.strftime('%d.%m.%Y')}")
-            await bot.forward_message(chat_id=-1002714644138, from_chat_id=id_chat, message_id=id_message)
+            await bot.send_message(chat_id=-4937110209, text=f"📋 Отзыв от нашего клиента {name.capitalize()}.\n\n📅 Дата: {date.strftime('%d.%m.%Y')}")
+            await bot.forward_message(chat_id=-4937110209, from_chat_id=id_chat, message_id=id_message)
             return await show_review(callback.message, state)
     except DetailedAiogramError as e:
         await send_long_message(f"Excpetion admin_panel.py 1085 line {datetime.now().strftime('%d %B %Y, %H:%M:%S')}\n\n{e}") 

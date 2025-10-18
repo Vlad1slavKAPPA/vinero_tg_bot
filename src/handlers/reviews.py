@@ -171,5 +171,5 @@ async def show_order_detail(callback: CallbackQuery, state: FSMContext):
     
 @reviews_router.message(F.text == "💬 Отзывы наших клиентов")
 async def link_to_all_reviews(message: Message, state: FSMContext):
-    await message.answer("Тут наши клиенты оставляют свои отзывы: https://t.me/barbero_review", reply_markup=review_kb())
+    await message.answer("Тут наши клиенты оставляют свои отзывы: https://t.me/+GuM0A679aiU1YmEy", reply_markup=review_kb())
 

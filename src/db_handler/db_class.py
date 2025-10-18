@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import text
 import asyncio
 from decouple import config
+from sshtunnel import SSHTunnelForwarder
 
 
 class DatabaseConnector:
@@ -15,7 +16,7 @@ class DatabaseConnector:
     def create_engine_and_session(self):
         if config("USE_SSH").lower() == "true":
             # 🔹 Локальная разработка (с туннелем)
-            from sshtunnel import SSHTunnelForwarder
+            
 
             self.tunnel = SSHTunnelForwarder(
                 (config("SSH_HOST"), int(config("SSH_PORT"))),
