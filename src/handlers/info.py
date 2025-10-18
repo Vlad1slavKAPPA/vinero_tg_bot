@@ -19,7 +19,7 @@ async def contacts_cmd(call: CallbackQuery):
 @info_router.message(F.text == '📖 О нас')
 async def about_cmd(message: Message):
     await message.answer("""
-🌿 Добро пожаловать в студию красоты Barbero 🌿  
+🌿 Добро пожаловать в студию красоты Vinero 🌿  
 
 💇‍♀️ У нас есть всё, чтобы вы могли позаботиться о себе: стрижки и окрашивания, уход за кожей и ногтями. Мы работаем и для женщин, и для мужчин, а женским услугам уделяем особое внимание. 
 
