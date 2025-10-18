@@ -9,7 +9,6 @@ def main_kb(user_telegram_id: int):
         [KeyboardButton(text="💇‍♀️ Записаться к мастеру")],
         [KeyboardButton(text='📋 Мои записи')],
         [KeyboardButton(text='🛠 Выдать права администратора')],
-        [KeyboardButton(text='👨‍🔧 Выдать права сотрудника')]
     ]
     if user_telegram_id in db_connector.admins_cache:
         kb_list.append([KeyboardButton(text="⚙️ Админ-панель")])
